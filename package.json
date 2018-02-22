@@ -18,7 +18,7 @@
     "config": "*",
     "consolidate": "^0.14.0",
     "ejs": "^2.5.7",
-    "eusi-node": "git+ssh://git@gitlab.com/andrej4/eusi-node.git",
+    "eusi-node": "git@github.com:jsguru-io/eusi-sdk-core-js.git",
     "express": "^4.11.0",
     "express-ejs-layouts": "^2.3.1",
     "express-react-views": "^0.10.5",
