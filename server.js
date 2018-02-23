@@ -1,5 +1,7 @@
 // @see: https://gist.github.com/branneman/8048520
 require('app-module-path').addPath(__dirname + '/lib');
+const express=require('express');
+const path=require('path');
 const eusiNode = require('eusi-sdk-node');
 const eusi = global.eusi = eusiNode({
     bucketKey: '63c49661-653f-46ce-b6f6-a86e4ba28fe1',
@@ -14,5 +16,6 @@ var server = require('nodebootstrap-server')
 
 
 app = require('nodebootstrap-htmlapp').setup(app);
+app.use(express.static(path.join(__dirname,'./public')));
 
 server.setup(app, appConfig.setup);
