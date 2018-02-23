@@ -1,8 +1,12 @@
 require('app-module-path').addPath(__dirname + '/lib');
+const cookieParser = require('cookie-parser');
 
 exports.setup = function (runningApp, callback) {
     // Nothing ever comes from "x-powered-by", but a security hole
     runningApp.disable("x-powered-by");
+
+
+    runningApp.use(cookieParser());
 
     // Choose your favorite view engine(s)
     //runningApp.set('view engine', 'handlebars');
@@ -13,6 +17,24 @@ exports.setup = function (runningApp, callback) {
     //// you could use two view engines in parallel (if you are brave):
     // runningApp.set('view engine', 'j2');
     // runningApp.engine('j2', require('swig').renderFile);
+
+    runningApp.use(function (req, res, next) {
+        let token = req.cookies['auth_token'];
+
+        if (token) {
+            const eusiClient = eusi(token);
+            eusiClient.getUser()
+                .then((user) => {
+                    console.log("USER", user);
+                    res.locals = {user: user}
+                    next();
+                })
+                .catch(next);
+        }
+        else {
+            next();
+        }
+    });
 
 
     //---- Mounting well-encapsulated application modules (so-called: "mini-apps")
