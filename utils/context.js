@@ -3,9 +3,9 @@ const Context = () => {
 }
 
 Context.create = (req, data) => {
-    return Object.assign({
-        user: req.user,
-        data
+    return Object.assign({}, data, {
+        $user: req.user,
+        $config : req.$config
     });
 };
 
@@ -14,11 +14,11 @@ Context.apply = (context, data) => {
 };
 
 Context.eusiClient = (eusi, user) => {
-    let token = user.user;
+    let token = user ? user.token : null;
     return token ? eusi(token) : eusi.getAccess()
         .then((response) => {
             return eusi(response.token);
-        })
+        });
 }
 
 module.exports = Context;
