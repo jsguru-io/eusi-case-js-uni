@@ -147,16 +147,16 @@
                                         href="/pages/contact">Contact</a></li>
                         </ul>
                         <ul class="pull-right flip hidden-sm hidden-xs">
-                            <% if (locals['_locals'].user) { %>
+                            <% if ($user) { %>
                             <li>
                                 <a class="btn btn-colored btn-flat bg-theme-color-2 text-white font-14 bs-modal-ajax-load mt-0 p-25 pr-15 pl-15"
                                    href="#">
-                                    <%= locals['_locals'].user.first_name %>
-                                    <%= locals['_locals'].user.last_name %>
+                                    <%= $user.first_name %>
+                                    <%= $user.last_name %>
                                 </a>
                             </li>
                             <% } %>
-                            <% if (!locals['_locals'].user) { %>
+                            <% if (!$user) { %>
                             <li>
                                 <a class="btn btn-colored btn-flat bg-theme-color-2 text-white font-14 bs-modal-ajax-load mt-0 p-25 pr-15 pl-15"
                                    href="/join">Join Now</a>

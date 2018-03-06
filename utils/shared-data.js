@@ -6,7 +6,7 @@ module.exports = () => {
     return (req, res, next) => {
         let token = req.cookies['auth_token'];
         let eusiClient;
-        Context.eusiClient(global.eusi, token)
+        Context.eusiClient(global.eusi, {token: token})
             .then((client) => {
                 eusiClient = client;
                 let promise;
