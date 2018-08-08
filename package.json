@@ -21,7 +21,7 @@
     "ejs": "^2.5.7",
     "eusi-sdk-core": "^1.0.1",
     "eusi-sdk-node": "^1.0.0",
-    "eusi-sdk-utils-js": "git+ssh://git@github.com/jsguru-io/eusi-sdk-utils-js.git",
+    "eusi-sdk-utils-js": "https://github.com/jsguru-io/eusi-sdk-utils-js.git  ",
     "express": "^4.11.0",
     "express-ejs-layouts": "^2.3.1",
     "express-react-views": "^0.10.5",
@@ -50,6 +50,7 @@
   "scripts": {
     "start": "./bin/start.sh",
     "dev": "./bin/dev_start.sh",
+    "develop": "nodemon ./server.js localhost 32000",
     "docker-start": "docker-compose up -d",
     "docker-build": "docker-compose build --force-rm --no-cache --pull",
     "docker-dev": "docker-compose -f docker-compose.dev.yml up -d",
