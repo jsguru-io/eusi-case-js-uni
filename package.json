@@ -50,7 +50,7 @@
   "scripts": {
     "start": "./bin/start.sh",
     "dev": "./bin/dev_start.sh",
-    "develop": "nodemon ./server.js localhost 32000",
+    "develop": "nodemon -e js,ejs ./server.js localhost 32000",
     "docker-start": "docker-compose up -d",
     "docker-build": "docker-compose build --force-rm --no-cache --pull",
     "docker-dev": "docker-compose -f docker-compose.dev.yml up -d",
