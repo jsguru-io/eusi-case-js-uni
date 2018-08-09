@@ -8,3 +8,33 @@ theme. But don't modify style-main.css file.
 */
 
 /* Your custom css codes start here: */
+
+.uni-dropdown-menu {
+    display: none;
+    background: #fff;
+    flex-direction: column;
+    position: absolute;
+    border-radius: 3px;
+    margin-top: 8px;
+    z-index: 99;
+    padding: 0;
+    border: 1px solid transparent;
+}
+
+.uni-dropdown:hover .uni-dropdown-btn{
+    color: #888;
+}
+
+.uni-dropdown:hover .uni-dropdown-menu{
+    display: flex;
+}
+
+.uni-dropdown-item {
+    padding: 8px;
+    background: #202C45;
+    color: #fff;
+}
+
+.uni-dropdown-item:hover {
+    background: #fff;
+}

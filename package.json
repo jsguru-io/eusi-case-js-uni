@@ -29,7 +29,7 @@
     "hbs": "^4.0",
     "lodash": "^4.3.0",
     "metalogger": "*",
-    "moment": "^2.21.0",
+    "moment": "^2.22.2",
     "nodebootstrap-htmlapp": "*",
     "nodebootstrap-server": "*",
     "react": "^16.2.0",
