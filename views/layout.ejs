@@ -75,9 +75,11 @@
                                     <a class="text-white" href="/pages/contact">Help Desk</a>
                                 </li>
                                 <li class="text-white">|</li>
+                                <% if(!$user) {%>
                                 <li>
                                     <a class="text-white" href="/join">Login</a>
                                 </li>
+                                <%}%>
                             </ul>
                         </div>
                     </div>
@@ -159,9 +161,13 @@
                             <li class="<%= settings.active === 'teacher' ? 'active' : '' %>"><a href="/teachers">Teachers</a>
                             </li>
                             <li class="<%= settings.active === 'blog' ? 'active' : '' %>"><a href="/blog">Blog</a></li>
+                            <li class="<%= settings.active === 'contact' ? 'active' : '' %>">
+                                <a href="/events">Events</a>
+                            </li>
                             <li class="<%= settings.active === 'contact' ? 'active' : '' %>"><a
                                         href="/pages/contact"
                                 >Contact</a></li>
+
                         </ul>
                         <ul class="pull-right flip hidden-sm hidden-xs">
                             <% if ($user) { %>

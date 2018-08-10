@@ -16,6 +16,7 @@ exports.setup = function (app, callback) {
     app.use('/blog', require('blog'));
     app.use('/pages', require('page'));
     app.use('/join', require('auth'));
+    app.use('/events', require('site-events'));
     app.use('/', require('home')); 
 
     // API endpoint attached to root route:

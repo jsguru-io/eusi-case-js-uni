@@ -18,6 +18,7 @@ theme. But don't modify style-main.css file.
     margin-top: 8px;
     z-index: 99;
     padding: 0;
+    top: 62px;
     border: 1px solid transparent;
 }
 
