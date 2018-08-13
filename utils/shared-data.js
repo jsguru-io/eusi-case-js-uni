@@ -1,4 +1,4 @@
-const PAGE_SETTINGS_ID = "39e5bb7a-c921-4f7e-b7af-55326ec85611";
+const PAGE_SETTINGS_ID = "9caefb79-7ea9-4e5a-a5d5-fbbb39ffebbc";
 const Context = require('../utils/context');
 const Model = require('eusi-sdk-utils-js');
 
