@@ -145,8 +145,8 @@
                         <ul class="menuzord-menu">
                             <li class="<%= settings.active === 'home' ? 'active' : '' %>"><a href="/">Home</a></li>
                             <li class="uni-dropdown <%= settings.active === 'course' ? 'active' : '' %>">
-                                <a class="uni-dropdown-btn" href="#" role="button" aria-haspopup="true"
-                                   aria-expanded="false"
+                                <a class="uni-dropdown-btn" role="button" aria-haspopup="true"
+                                   aria-expanded="false" href="<%= $user ? '#' : '/courses'%>"
                                 >
                                     Courses
                                 </a>
@@ -165,8 +165,7 @@
                                 <a href="/events">Events</a>
                             </li>
                             <li class="<%= settings.active === 'contact' ? 'active' : '' %>"><a
-                                        href="/pages/contact"
-                                >Contact</a></li>
+                                        href="/pages/contact">Contact</a></li>
 
                         </ul>
                         <ul class="pull-right flip hidden-sm hidden-xs">
