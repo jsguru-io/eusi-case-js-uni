@@ -1,11 +1,18 @@
 const PAGE_SETTINGS_ID = "9caefb79-7ea9-4e5a-a5d5-fbbb39ffebbc";
 const Context = require('../utils/context');
 const Model = require('eusi-sdk-utils-js');
+const config = require('../config/config.js');
 
 module.exports = () => {
     return (req, res, next) => {
         let token = req.cookies['auth_token'];
         let eusiClient;
+        res.locals = {
+            newsletterFormKey: config.newsletterFormKey,
+            authToken: token,
+            bucketId: config.bucketId,
+            bucketSecret: config.bucketSecret
+        };
         Context.eusiClient(req.cookies.auth_token)
             .then((client) => {
                 eusiClient = client;

@@ -19,6 +19,7 @@
     "consolidate": "^0.14.0",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
+    "eusi-sdk-browser": "^1.1.1",
     "eusi-sdk-core": "^1.0.1",
     "eusi-sdk-node": "^1.0.0",
     "eusi-sdk-utils-js": "https://github.com/jsguru-io/eusi-sdk-utils-js.git  ",

@@ -46,6 +46,8 @@
     <script src="/js/bootstrap.min.js"></script>
     <!-- JS | jquery plugin collection for this theme -->
     <script src="/js/jquery-plugin-collection.js"></script>
+    <script src="/eusi-sdk-core.js"></script>
+    <script src="/eusi-sdk-browser.js"></script>
 </head>
 <body class="">
 <div id="wrapper" class="clearfix">
@@ -67,19 +69,19 @@
                     <div class="col-md-4">
                         <div class="widget no-border m-0">
                             <ul class="list-inline font-13 sm-text-center mt-5">
-                                <li>
-                                    <a class="text-white" href="/pages/faq">FAQ</a>
-                                </li>
-                                <li class="text-white">|</li>
+                                <!--<li>-->
+                                <!--<a class="text-white" href="/pages/faq">FAQ</a>-->
+                                <!--</li>-->
+                                <!--<li class="text-white">|</li>-->
                                 <li>
                                     <a class="text-white" href="/pages/contact">Help Desk</a>
                                 </li>
                                 <li class="text-white">|</li>
-                                <% if(!$user) {%>
+                                <% if(!$user) { %>
                                 <li>
                                     <a class="text-white" href="/join">Login</a>
                                 </li>
-                                <%}%>
+                                <% } %>
                             </ul>
                         </div>
                     </div>
@@ -146,16 +148,16 @@
                             <li class="<%= settings.active === 'home' ? 'active' : '' %>"><a href="/">Home</a></li>
                             <li class="uni-dropdown <%= settings.active === 'course' ? 'active' : '' %>">
                                 <a class="uni-dropdown-btn" role="button" aria-haspopup="true"
-                                   aria-expanded="false" href="<%= $user ? '#' : '/courses'%>"
+                                   aria-expanded="false" href="<%= $user ? '#' : '/courses' %>"
                                 >
                                     Courses
                                 </a>
 
                                 <% if ($user) { %>
-                                    <div class="uni-dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="uni-dropdown-item" href="/courses#list">Show all courses</a>
-                                        <a class="uni-dropdown-item" href="/courses#transactions">Transactions</a>
-                                    </div>
+                                <div class="uni-dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="uni-dropdown-item" href="/courses#list">Show all courses</a>
+                                    <a class="uni-dropdown-item" href="/courses#transactions">Transactions</a>
+                                </div>
                                 <% } %>
                             </li>
                             <li class="<%= settings.active === 'teacher' ? 'active' : '' %>"><a href="/teachers">Teachers</a>
@@ -165,7 +167,8 @@
                                 <a href="/events">Events</a>
                             </li>
                             <li class="<%= settings.active === 'contact' ? 'active' : '' %>"><a
-                                        href="/pages/contact">Contact</a></li>
+                                        href="/pages/contact"
+                                >Contact</a></li>
 
                         </ul>
                         <ul class="pull-right flip hidden-sm hidden-xs">
@@ -282,35 +285,62 @@
                     <div class="widget dark">
                         <h5 class="widget-title mb-10">Subscribe Us</h5>
                         <!-- Mailchimp Subscription Form Starts Here -->
-                        <form id="mailchimp-subscription-form-footer" class="newsletter-form">
+                        <form id="newsletter_form" class="newsletter-form">
                             <div class="input-group">
                                 <input type="email" value="" name="EMAIL" placeholder="Your Email"
                                        class="form-control input-lg font-16" data-height="45px" id="mce-EMAIL-footer"
                                 >
                                 <span class="input-group-btn">
-                  <button data-height="45px" class="btn bg-theme-color-2 text-white btn-xs m-0 font-14" type="submit">Subscribe</button>
+                  <button data-height="45px" id="submit_newsletter_form" class="btn bg-theme-color-2 text-white btn-xs m-0 font-14" type="button">Subscribe</button>
                 </span>
                             </div>
                         </form>
                         <!-- Mailchimp Subscription Form Validation-->
                         <script type="text/javascript">
-                            $('#mailchimp-subscription-form-footer').ajaxChimp({
-                                callback: mailChimpCallBack,
-                                url: '//thememascot.us9.list-manage.com/subscribe/post?u=a01f440178e35febc8cf4e51f&amp;id=49d6d30e1e'
+                            const eusi = eusiBrowser({
+                                bucketKey: '<%= bucketId %>',
+                                // eslint-disable-next-line
+                                bucketSecret: '<%= bucketSecret %>'
                             });
 
-                            function mailChimpCallBack(resp) {
-                                // Hide any previous response text
-                                var $mailchimpform = $('#mailchimp-subscription-form-footer'),
-                                    $response = '';
-                                $mailchimpform.children(".alert").remove();
+                            const $form = $('#newsletter_form');
+                            const $email = window.newsletter_form.querySelector('input');
+
+                            const mailChimpCallBack = (resp) => {
+                                var $response = '';
+                                $form.children(".alert").remove();
                                 if (resp.result === 'success') {
                                     $response = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
                                 } else if (resp.result === 'error') {
                                     $response = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
                                 }
-                                $mailchimpform.prepend($response);
-                            }
+                                $email.value = '';
+                                $form.prepend($response);
+                            };
+
+                            const sendForm = () => {
+                                eusi.getAccess().then(result => {
+                                    return eusi.submitForm('<%= newsletterFormKey %>', {
+                                        email: $email.value
+
+                                }, {
+                                        token: result.token
+                                    });
+                                })
+                                    .then(() => ({
+                                        result: 'success',
+                                        msg: 'We have added you to our newsletter list. Enjoy it!'
+                                    }))
+                                    .catch(error => ({
+                                        result: 'error',
+                                        msg: error.validation[0].message
+                                    }))
+                                    .then(mailChimpCallBack);
+                            };
+
+                            window.submit_newsletter_form.addEventListener('click', () => {
+                                sendForm();
+                            });
                         </script>
                         <!-- Mailchimp Subscription Form Ends Here -->
                     </div>
@@ -326,10 +356,10 @@
                     <div class="col-md-6 text-right">
                         <div class="widget no-border m-0">
                             <ul class="list-inline sm-text-center mt-5 font-12">
-                                <li>
-                                    <a href="/pages/faq">FAQ</a>
-                                </li>
-                                <li>|</li>
+                                <!--<li>-->
+                                <!--<a href="/pages/faq">FAQ</a>-->
+                                <!--</li>-->
+                                <!--<li>|</li>-->
                                 <li>
                                     <a href="/pages/contact">Contact</a>
                                 </li>
