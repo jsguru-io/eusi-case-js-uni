@@ -1,6 +1,7 @@
 require('app-module-path').addPath(__dirname + '/lib');
 const cookieParser = require('cookie-parser');
 const sharedData = require('./utils/shared-data');
+const errorMiddleaware = require('./lib/midllewares/error-handler');
 
 exports.setup = function (app, callback) {
     app.disable("x-powered-by");
@@ -8,6 +9,7 @@ exports.setup = function (app, callback) {
     app.set('view engine', 'ejs');
     app.use(require('express-ejs-layouts'));
     app.use(sharedData());
+    app.use(errorMiddleaware);
 
     // Routes
     app.use('/home', require('home'));

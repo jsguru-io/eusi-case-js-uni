@@ -34,6 +34,9 @@ module.exports = () => {
             .then((config) => {
                 req.$config = Model(config);
                 next();
+            })
+            .catch(error => {
+                next(error.error);
             });
     }
 };
