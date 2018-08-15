@@ -159,7 +159,7 @@ var THEMEMASCOT = {};
             THEMEMASCOT.bmiCalculator.init();
             THEMEMASCOT.initialize.TM_datePicker();
             THEMEMASCOT.initialize.TM_ddslick();
-            THEMEMASCOT.initialize.TM_loadBSParentModal();
+            //THEMEMASCOT.initialize.TM_loadBSParentModal();
             THEMEMASCOT.initialize.TM_demoSwitcher();
             THEMEMASCOT.initialize.TM_platformDetect();
             THEMEMASCOT.initialize.TM_onLoadModal();
