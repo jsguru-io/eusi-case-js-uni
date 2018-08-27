@@ -13,6 +13,7 @@ module.exports = () => {
             bucketId: config.bucketId,
             bucketSecret: config.bucketSecret
         };
+        
         Context.eusiClient(req.cookies.auth_token)
             .then((client) => {
                 eusiClient = client;
